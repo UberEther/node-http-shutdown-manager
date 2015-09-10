@@ -87,6 +87,7 @@ describe "Shutdown Handler", () ->
 
     it "should close server shutdown", (cb) ->
         svr = new EventEmitter()
+        svr._handle = 1
         svr.close = () -> @closed = true
         t = new NodeHttpShutdownManager svr
         t.shutdown()
@@ -118,6 +119,7 @@ describe "Shutdown Handler", () ->
         res = new EventEmitter()
         t = new NodeHttpShutdownManager svr
 
+        svr._handle = 1
         svr.close = () -> @closed = true
 
         s.destroy = () ->

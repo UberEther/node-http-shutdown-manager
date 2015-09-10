@@ -21,7 +21,7 @@ class NodeHttpShutdownManager extends events.EventEmitter
         return @shutdownPromise.nodeify(cb) if @shutdownPromise
         self = @
         @shutdownPromise = new Promise (resolve) ->
-            self.server.close()
+            self.server.close() if self.server._handle # @todo Not exactly clean but Node 0.10 fails if listener is not started
             if !self.numOpenConnections then resolve()
             else
                 self.shutdownCallback = resolve
